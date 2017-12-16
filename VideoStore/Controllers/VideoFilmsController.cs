@@ -37,16 +37,16 @@ namespace VideoStore.Controllers
             return View();
         }
 
-        //[HttpPost]
-        //public ActionResult Create(Videofilm videoFilm)
-        //{
-        //    if (!ModelState.IsValid)
-        //        return View("VideoFilms");
+        [HttpPost]
+        public ActionResult Create(Videofilm videoFilm)
+        {
+            if (!ModelState.IsValid)
+                return View("VideoFilms");
 
-        //    repository.Add(videoFilm);
-        //    repository.SaveChanges();
-        //    return RedirectToAction("index"); 
-        //}
+            repository.Add(videoFilm);
+            repository.SaveChanges();
+            return RedirectToAction("index");
+        }
 
         public ActionResult Find(Videofilm videoFilm)
         {
