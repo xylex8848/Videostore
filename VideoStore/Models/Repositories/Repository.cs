@@ -36,11 +36,17 @@ namespace VideoStore.Models.Repositories
         public void Add(T entity)
         {
             DbSet.Add(entity);
+
         }
 
         public void Remove(T entity)
         {
             DbSet.Remove(entity);
+        }
+
+        public void Edit(T entity)
+        {
+            context.Entry<T>(entity).State = EntityState.Modified;
         }
 
         public void SaveChanges()

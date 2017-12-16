@@ -24,7 +24,7 @@ namespace VideoStore.Controllers
             else
                 return View(videofilm);
         }
-        
+                
         
         // GET: VideoFilms
         public ActionResult Index()
@@ -52,7 +52,59 @@ namespace VideoStore.Controllers
         {
 
             return View(repository.Get(videoFilm.Id));
+        }
 
+
+        public ActionResult Delete(int id)
+        {
+            Videofilm videofilm = repository.Get(id);
+
+            if (videofilm == null)            
+                return HttpNotFound();            
+            else            
+                return View(videofilm);                                        
+        }
+
+        [HttpPost,ActionName("Delete")]
+        [ValidateAntiForgeryToken]
+        public ActionResult DeleteConfirmed(int id)
+        {
+            Videofilm videofilm = repository.Get(id);
+            
+            if (videofilm == null)
+                return HttpNotFound();
+            else
+            {
+                repository.Remove(videofilm);
+                repository.SaveChanges();
+                return RedirectToAction("index");
+            }
+                  
+        }
+        
+        public ActionResult Edit(int id)
+        {
+            Videofilm videofilm = repository.Get(id);
+
+            if (videofilm == null)
+                return HttpNotFound();
+            else
+                return View(videofilm);
+        }
+
+        [HttpPost, ActionName("Edit")]
+        [ValidateAntiForgeryToken]
+        public ActionResult EditConfirmed(Videofilm videofilm)
+        {
+            if (videofilm == null)
+                return HttpNotFound();
+            else
+            {
+                repository.Edit(videofilm);
+                repository.SaveChanges();
+                return RedirectToAction("Index");
+
+            }
         }
 
 

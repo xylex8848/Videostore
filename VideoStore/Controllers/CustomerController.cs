@@ -49,6 +49,34 @@ namespace VideoStore.Controllers
         }
 
 
+        public ActionResult Delete(int id)
+        {
+            Customer customer = repository.Get(id);
+
+            if (customer == null)
+                return HttpNotFound();
+            else
+                return View(customer);
+        }
+
+        [HttpPost, ActionName("Delete")]
+        [ValidateAntiForgeryToken]
+        public ActionResult DeleteConfirmed(int id)
+        {
+            Customer customer = repository.Get(id);
+
+            if (customer == null)
+                return HttpNotFound();
+            else
+            {
+                repository.Remove(customer);
+                repository.SaveChanges();
+                return RedirectToAction("index");
+            }
+
+        }
+
+
 
     }
 }
