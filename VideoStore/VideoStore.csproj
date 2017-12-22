@@ -182,6 +182,7 @@
     <Compile Include="Models\IdentityModels.cs" />
     <Compile Include="Models\ManageViewModels.cs" />
     <Compile Include="Models\Repositories\Repository.cs" />
+    <Compile Include="Models\VideoCustomer.cs" />
     <Compile Include="Models\Videofilm.cs" />
     <Compile Include="Models\VideoStoreDataContextInitializer.cs" />
     <Compile Include="Models\VideoStoreDbContext.cs" />
@@ -246,12 +247,15 @@
     <Content Include="Views\VideoFilms\Index.cshtml" />
     <Content Include="Views\VideoFilms\Create.cshtml" />
     <Content Include="Views\VideoFilms\Details.cshtml" />
-    <Content Include="Views\Customer\CustomerDetails.cshtml" />
+    <Content Include="Views\Customer\Details.cshtml" />
     <Content Include="Views\Customer\Create.cshtml" />
     <Content Include="Views\Customer\Index.cshtml" />
     <Content Include="Views\VideoFilms\Delete.cshtml" />
     <Content Include="Views\Customer\Delete.cshtml" />
     <Content Include="Views\VideoFilms\Edit.cshtml" />
+    <Content Include="Views\Customer\Edit.cshtml" />
+    <Content Include="Views\Customer\Errormessage.cshtml" />
+    <Content Include="Views\VideoFilms\CustomerFilter.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

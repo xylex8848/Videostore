@@ -12,11 +12,12 @@ namespace VideoStore.Controllers
     {
         //VideoStoreDbContext context = new VideoStoreDbContext();
         Repository<Videofilm> repository = new Repository<Videofilm>();
+        Repository<Customer> repositoryCustomer = new Repository<Customer>();
         
       public ActionResult Details(int id)
         {
             Videofilm videofilm = repository.Get(id);
-
+            
             if (videofilm == null)
             {
                 return HttpNotFound();
@@ -29,7 +30,15 @@ namespace VideoStore.Controllers
         // GET: VideoFilms
         public ActionResult Index()
         {
-            return View(repository.GetAll());
+            return View(repository.GetAll().OrderBy(x => x.Title));
+        }
+
+        public ActionResult CustomerFilter(string customerName)
+        {
+            if (!string.IsNullOrEmpty(customerName))            
+                return View(repository.GetAll().Where(x => x.Customer.Name == customerName).ToList());            
+            else
+                return HttpNotFound();            
         }
 
         public ActionResult Create()
@@ -78,14 +87,13 @@ namespace VideoStore.Controllers
                 repository.Remove(videofilm);
                 repository.SaveChanges();
                 return RedirectToAction("index");
-            }
-                  
+            }                  
         }
         
         public ActionResult Edit(int id)
         {
             Videofilm videofilm = repository.Get(id);
-
+           
             if (videofilm == null)
                 return HttpNotFound();
             else
@@ -96,14 +104,23 @@ namespace VideoStore.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult EditConfirmed(Videofilm videofilm)
         {
+            if (!videofilm.CustomerId.HasValue)
+            {
+                videofilm.Customer = null;
+                videofilm.CustomerId = null;
+            }
+            else if (repositoryCustomer.Get(videofilm.CustomerId.GetValueOrDefault()) == null)
+                return View("Error");
+            
+
+
             if (videofilm == null)
                 return HttpNotFound();
-            else
+            else 
             {
                 repository.Edit(videofilm);
-                repository.SaveChanges();
+                repository.SaveChanges();                
                 return RedirectToAction("Index");
-
             }
         }
 

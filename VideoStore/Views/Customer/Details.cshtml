@@ -28,11 +28,19 @@
 
     </dl>
 </div>
-<h2>Videofilms</h2>
-<ul>
-    @foreach (var video in Model.Videofilms)
+<h4>Videofilms</h4>
+<hr />
+<ul>    
+    @if (Model.Videofilms.Count > 0)
     {
-        <li>@video.Title</li>
+        foreach (var video in Model.Videofilms)
+        {
+            <li>@video.Title</li>
+        }
+    }
+    else
+    {
+        <li>No rented videofilms by customer.</li>
     }
 </ul>
 

@@ -10,6 +10,7 @@ namespace VideoStore.Models
     {
         public int Id { get; set; }
 
+        [Display(Name = "VideoFilm Name")]
         [Required]
         [StringLength(100,MinimumLength = 2)]
         public string Title { get; set; }
